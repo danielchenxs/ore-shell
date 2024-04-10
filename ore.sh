@@ -279,15 +279,18 @@ function multiple() {
 
 function check_multiple() {
 	# 提示用户同时输入起始和结束编号，用空格分隔
-	echo -n "请输入起始和结束编号，中间用空格分隔比如跑了10个钱包地址，输入1 10即可: "
-	read -a range
+	# echo -n "请输入起始和结束编号，中间用空格分隔比如跑了10个钱包地址，输入1 10即可: "
+	# read -a range
+
+	# 获取以"id"开头的文件数
+	path="$HOME/.config/solana/"
 
 	# 获取以"id"开头的文件数
 	count=$(find "$path" -maxdepth 1 -type f -name "id*" | grep -c '')
 
 	# 获取起始和结束编号
 	start=1
-	end=count
+	end=$count
 
 	# 执行循环
 	for i in $(seq $start $end); do
