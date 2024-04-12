@@ -202,7 +202,26 @@ function view_rewards() {
 
 # 领取奖励
 function claim_rewards() {
-	ore --rpc https://api.mainnet-beta.solana.com --keypair ~/.config/solana/id.json claim
+	echo "输入fee=()万"
+	read -p "请输入fee=? 万:" fee
+
+	fee=$((fee * 10000))
+
+	# 指定路径
+	path="$HOME/.config/solana/"
+
+	# 获取以"id"开头的文件数
+	count=$(find "$path" -maxdepth 1 -type f -name "id*" | grep -c '')
+	for ((i = 1; i <= count; i++)); do
+		# command="while true; do ore --rpc https://api.mainnet-beta.solana.com --keypair ~/.config/solana/id${i}.json --priority-fee ${fee} claim; echo  'claim 异常,等待重启' >&2; sleep 1; done "
+		command="while true; do ore --rpc https://api.mainnet-beta.solana.com --keypair ~/.config/solana/id${i}.json claim; echo  'claim 异常,等待重启' >&2; sleep 1; done "
+		echo "开始claim, i=${i}"
+		echo "${command}"
+		screen -dmS "claim_${i}" bash -c "$command"
+
+		echo "i=${i} 启动成功"
+	done
+
 }
 
 function check_logs() {
