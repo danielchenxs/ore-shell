@@ -253,7 +253,7 @@ function multiple() {
 	session_base_name="ore"
 
 	# 启动命令模板，使用变量替代rpc地址
-	start_command_template="while true; do ore --rpc $rpc_address --keypair ~/.config/solana/idX.json --priority-fee 3000 mine --threads 4; echo '进程异常退出，等待重启' >&2; sleep 1; done"
+	start_command_template="while true; do ore --rpc $rpc_address --keypair ~/.config/solana/idX.json --priority-fee 1 mine --threads 4; echo '进程异常退出，等待重启' >&2; sleep 1; done"
 
 	# 确保.solana目录存在
 	mkdir -p ~/.config/solana
